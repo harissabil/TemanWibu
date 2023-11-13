@@ -22,17 +22,25 @@ TemanWibu is an Android-based application that facilitates users in managing the
 [Shafaya Sasikirana](https://www.github.com/)| G6401221092 |
 
 ## Screenshot
-| Welcome Screen | Login Screen | Register Screen |
-| --- | --- | --- | 
-| ![](assets/screenshot/welcome.png?raw=true) | ![](assets/screenshot/login.png?raw=true) | ![](assets/screenshot/register.png?raw=true) |
-
-| Home Screen | Detail Screen | Search Screen |
-| --- | --- | --- | 
-| ![](assets/screenshot/home.png?raw=true) | ![](assets/screenshot/detail.png?raw=true) | ![](assets/screenshot/search.png?raw=true) |
-
-| Library Screen | Forum Screen | Profile Screen |
-| --- | --- | --- | 
-| ![](assets/screenshot/library.png?raw=true) | ![](assets/screenshot/forum.png?raw=true) | ![](assets/screenshot/profile.png?raw=true) |
+<table>
+  <tbody>
+    <tr>
+      <td><img src="assets/screenshot/welcome.png?raw=true"/></td>
+      <td><img src="assets/screenshot/login.png?raw=true"/></td>
+      <td><img src="assets/screenshot/register.png?raw=true"/></td>
+    </tr>
+    <tr>
+      <td><img src="assets/screenshot/home.png?raw=true"/></td>
+      <td><img src="assets/screenshot/detail.png?raw=true"/></td>
+      <td><img src="assets/screenshot/search.png?raw=true"/></td>
+    </tr>
+    <tr>
+      <td><img src="assets/screenshot/library.png?raw=true"/></td>
+      <td><img src="assets/screenshot/forum.png?raw=true"/></td>
+      <td><img src="assets/screenshot/profile.png?raw=true"/></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Tech Stack
 
