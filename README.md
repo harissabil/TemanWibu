@@ -46,15 +46,15 @@ TemanWibu is an Android-based application that facilitates users in managing the
 
 List of technologies used in this app.
 
-- Front-end
+- **Front-end**:
   - [Android](https://developer.android.com/)
   - [Kotlin](https://kotlinlang.org/)
   - [Jetpack Compose](https://developer.android.com/jetpack/compose)
 
-- Back-end
+- **Back-end**:
   - [PHP](https://www.php.net/)
 
-- Database
+- **Database**:
   - [PostgreSQL](https://www.postgresql.org/)
 
 ## Setup
