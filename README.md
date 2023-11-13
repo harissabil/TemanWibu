@@ -1,7 +1,7 @@
 # TemanWibu
 
 <div align="center">
-  <img src="https://github.com/harissabil/TemanWibu/assets/logo/teman_wibu.png" width="480" alt="Centered Image">
+  <img src="https://github.com/harissabil/TemanWibu/blob/main/assets/logo/teman_wibu.png" width="480" alt="Centered Image">
 </div>
 
 TemanWibu is an Android-based application that facilitates users in managing their anime list, whether it’s planning to watch, currently watching, or having finished watching. This application allows users to add anime to their library and provide reviews and ratings based on their assessment. This application also allows you to see other people’s reviews so that users can get a variety of views on an anime from various perspectives.
