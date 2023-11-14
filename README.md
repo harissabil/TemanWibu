@@ -17,9 +17,9 @@ TemanWibu is an Android-based application that facilitates users in managing the
 | Name | Student Number |
 | :-------- | :------- | 
 [Muhammad Haris Sabil Al Karim](https://github.com/harissabil) | G6401221003 |
-[Nurcahya Priantoro](https://github.com/)| G6401221049 |
-[Raihana Luthfia](https://github.com/)| G6401221054 |
-[Shafaya Sasikirana](https://www.github.com/)| G6401221092 |
+[Nurcahya Priantoro](https://github.com/Cahyo23042004)| G6401221049 |
+[Raihana Luthfia](https://github.com/raihanaluthfia)| G6401221054 |
+[Shafaya Sasikirana](https://www.github.com/fayyaas)| G6401221092 |
 
 ## Screenshot
 <table>
