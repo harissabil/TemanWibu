@@ -6,10 +6,12 @@
 
 TemanWibu is an Android-based application that facilitates users in managing their anime list, whether it’s planning to watch, currently watching, or having finished watching. This application allows users to add anime to their library and provide reviews and ratings based on their assessment. This application also allows you to see other people’s reviews so that users can get a variety of views on an anime from various perspectives.
 
+This project was created to fulfill the final assignment for the Database subject at IPB University. Its purpose is to demonstrate the understanding and application of database concepts and showcase proficiency in the technologies used in the development process. Feel free to explore the codebase to learn more about the implementation and functionalities.
+
 ## Table of Contents
 - [Group Members](#group-members)
-- [Screenshot](#screenshot)
-- [Tech Stack](#tech-stack)
+- [Screenshots](#screenshots)
+- [Tech Stacks](#tech-stacks)
 - [Setup](#setup)
 
 ## Group Members
@@ -21,7 +23,7 @@ TemanWibu is an Android-based application that facilitates users in managing the
 [Raihana Luthfia](https://github.com/raihanaluthfia)| G6401221054 |
 [Shafaya Sasikirana](https://www.github.com/fayyaas)| G6401221092 |
 
-## Screenshot
+## Screenshots
 <table>
   <tbody>
     <tr>
@@ -42,20 +44,20 @@ TemanWibu is an Android-based application that facilitates users in managing the
   </tbody>
 </table>
 
-## Tech Stack
+## Tech Stacks
 
 List of technologies used in this app.
 
 - **Front-end**:
-  - [Android](https://developer.android.com/)
-  - [Kotlin](https://kotlinlang.org/)
-  - [Jetpack Compose](https://developer.android.com/jetpack/compose)
+  - Platform: [Android](https://developer.android.com/)
+  - Language: [Kotlin](https://kotlinlang.org/)
+  - UI Framework: [Jetpack Compose](https://developer.android.com/jetpack/compose)
 
 - **Back-end**:
-  - [PHP](https://www.php.net/)
+  - Language: [PHP](https://www.php.net/)
 
 - **Database**:
-  - [PostgreSQL](https://www.postgresql.org/)
+  - DBMS: [PostgreSQL](https://www.postgresql.org/)
 
 ## Setup
 1. **Setting up PostgreSQL Database**:
