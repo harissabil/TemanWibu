@@ -15,7 +15,6 @@ This project was created to fulfill the final assignment for the Database subjec
 - [Setup](#setup)
 
 ## Group Members
-
 | Name | Student Number |
 | :-------- | :------- | 
 [Muhammad Haris Sabil Al Karim](https://github.com/harissabil) | G6401221003 |
@@ -45,7 +44,6 @@ This project was created to fulfill the final assignment for the Database subjec
 </table>
 
 ## Tech Stacks
-
 List of technologies used in this app.
 
 - **Front-end**:
