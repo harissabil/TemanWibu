@@ -58,22 +58,25 @@ List of technologies used in this app.
   - DBMS: [PostgreSQL](https://www.postgresql.org/)
 
 ## Setup
-1. **Setting up PostgreSQL Database**:
+1. **Download or Clone the Project**:
+   - To download, click on the "Code" button, then select "Download ZIP".
+   - To clone, use the following Git command `git clone https://github.com/harissabil/TemanWibu.git`.
+2. **Setting up PostgreSQL Database**:
    - Install PostgreSQL from [PostgreSQL's official website](https://www.postgresql.org/).
    - Create a new database using a PostgreSQL client (e.g., pgAdmin, psql).
    - Execute queries in [table.sql](./sql/table.sql) to create necessary tables for the application.
 
-2. **Backend Configuration**:
+3. **Backend Configuration**:
    - Edit the `config.php` file in the backend folder with your PostgreSQL database configuration.
 
-3. **Hosting the Backend**:
+4. **Hosting the Backend**:
    - For local hosting, use tools like XAMPP or Laragon. Place backend files within the server directory.
    - For remote hosting, use a web hosting service and upload backend files.
 
-4. **Android Project Setup**:
+5. **Android Project Setup**:
    - Open the Android project in Android Studio.
    - Create a `local.properties` file in the project root folder if it doesn’t exist.
    - Add `BACKEND_URL = "your_backend_url_here"` in the `local.properties` file.
 
-5. **Building and Running the App**:
+6. **Building and Running the App**:
    - Build and run the app on an Android emulator or a physical Android device.
