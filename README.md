@@ -60,7 +60,7 @@ List of technologies used in this app.
 ## Setup
 1. **Download or Clone the Project**:
    - To download, click on the "Code" button, then select "Download ZIP".
-   - To clone, use the following Git command `git clone https://github.com/harissabil/TemanWibu.git`.
+   - To clone, use the following Git command: `git clone https://github.com/harissabil/TemanWibu.git`.
 2. **Setting up PostgreSQL Database**:
    - Install PostgreSQL from [PostgreSQL's official website](https://www.postgresql.org/).
    - Create a new database using a PostgreSQL client (e.g., pgAdmin, psql).
