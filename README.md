@@ -4,7 +4,7 @@
   <img src="https://github.com/harissabil/TemanWibu/blob/main/assets/logo/teman_wibu.png" width="480" alt="Centered Image">
 </div>
 
-TemanWibu is an Android-based application that facilitates users in managing their anime list, whether it’s planning to watch, currently watching, or having finished watching. This application allows users to add anime to their library and provide reviews and ratings based on their assessment. This application also allows you to see other people’s reviews so that users can get a variety of views on an anime from various perspectives.
+TemanWibu is an Android-based application that facilitates users in managing their anime list, whether it’s planning to watch, currently watching, or having finished watching. It allows users to add anime to their library and provide reviews and ratings based on their assessment. This application also allows users to see other people’s reviews so that they can get a variety of views on an anime from various perspectives. The application utilizes the [Jikan API](https://github.com/jikan-me/jikan) for fetching anime information data, ensuring up-to-date and comprehensive details for users.
 
 This project was created to fulfill the final assignment for the Database subject at IPB University. Its purpose is to demonstrate the understanding and application of database concepts and showcase proficiency in the technologies used in the development process. Feel free to explore the codebase to learn more about the implementation and functionalities.
 
@@ -60,6 +60,7 @@ List of technologies used in this app.
 ## Setup
 1. **Setting up PostgreSQL Database**:
    - Install PostgreSQL from [PostgreSQL's official website](https://www.postgresql.org/).
+   - Create a new database using a PostgreSQL client (e.g., pgAdmin, psql).
    - Execute queries in [table.sql](./sql/table.sql) to create necessary tables for the application.
 
 2. **Backend Configuration**:
