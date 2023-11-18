@@ -25,11 +25,11 @@ data class Data(
     val source: String,
     val status: String,
     val studios: List<Studio>,
-    val synopsis: String,
+    val synopsis: String?,
     val title: String,
     val title_english: String,
     val title_japanese: String,
-    val type: String,
+    val type: String?,
     val url: String,
     val year: Int?
 ) : Parcelable

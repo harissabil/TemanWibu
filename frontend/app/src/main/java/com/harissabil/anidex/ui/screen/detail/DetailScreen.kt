@@ -225,8 +225,10 @@ fun DetailContent(
     CardSection {
         AnimeGenre(anime = anime)
     }
-    CardSection {
-        AnimeSynopsis(anime = anime)
+    if (anime.synopsis != null) {
+        CardSection {
+            AnimeSynopsis(anime = anime)
+        }
     }
     Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 }

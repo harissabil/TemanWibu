@@ -19,5 +19,5 @@ fun AnimeSynopsis(
             fontWeight = FontWeight.Bold
         )
     )
-    ExpandableText(text = anime.synopsis, modifier = Modifier.fillMaxWidth().animateContentSize(), minimizedMaxLines = 3)
+    ExpandableText(text = anime.synopsis!!, modifier = Modifier.fillMaxWidth().animateContentSize(), minimizedMaxLines = 3)
 }

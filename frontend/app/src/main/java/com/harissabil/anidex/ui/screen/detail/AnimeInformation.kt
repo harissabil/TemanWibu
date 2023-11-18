@@ -23,15 +23,17 @@ fun AnimeInformation(
     )
 
     //  Type
-    Row {
-        Text(text = "Type")
-        Text(
-            text = anime.type,
-            textAlign = TextAlign.End,
-            modifier = Modifier.weight(1f)
-        )
+    if (anime.type != null) {
+        Row {
+            Text(text = "Type")
+            Text(
+                text = anime.type,
+                textAlign = TextAlign.End,
+                modifier = Modifier.weight(1f)
+            )
+        }
+        HorizontalDivider(color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
-    HorizontalDivider(color = MaterialTheme.colorScheme.onSurfaceVariant)
 
     //  Episodes
     if (anime.episodes != null) {
@@ -66,7 +68,7 @@ fun AnimeInformation(
     }
 
     //  Airing Information
-    if (anime.aired.string.isNotEmpty()) {
+    if (anime.aired.string != null) {
         Row {
             Text(text = "Aired")
             Text(
