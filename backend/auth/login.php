@@ -21,6 +21,7 @@ if (!empty($_POST['username']) && !empty($_POST['password'])) {
 
                     if (password_verify($password, $hashedPassword)) {
                         $data = array();
+                        $row['password'] = $password;
                         $data[0] = $row;
                         $response['status'] = 'success';
                         $response['message'] = 'Login success';
