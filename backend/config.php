@@ -5,5 +5,5 @@ $user = "postgres";
 $password = "postgres";
 $db = pg_connect('host=' . $host . ' dbname=' . $dbname . ' user=' . $user . ' password=' . $password);
 if (!$db) {
-    die("Gagal terhubung dengan database: " . pg_connect_error());
+    die("Failed to connect to the database: " . pg_last_error());
 }
