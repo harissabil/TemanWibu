@@ -10,7 +10,9 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['n
     $name = $_POST['name'];
     $email = $_POST['email'];
 
-    $query = "INSERT INTO \"user\"(username, password, name, email) VALUES ('$username', '$password', '$name', '$email')";
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    $query = "INSERT INTO \"user\"(username, password, name, email) VALUES ('$username', '$hashedPassword', '$name', '$email')";
 
     if (pg_send_query($db, $query)) {
         $res = pg_get_result($db);
@@ -20,11 +22,10 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['n
                 $response['status'] = 'success';
                 $response['message'] = 'Registration success';
             } else {
+                $response['status'] = 'error';
                 if ($state == "23505") { // unique_violation
-                    $response['status'] = 'error';
                     $response['message'] = 'User already exists';
                 } else {
-                    $response['status'] = 'error';
                     $response['message'] = pg_result_error($res);
                 }
             }
