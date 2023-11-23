@@ -1,52 +1,59 @@
 <?php
 header("Content-Type: application/json");
-$response = array();
 global $db;
 require("../config.php");
 
-if (!empty($_POST['username']) && !empty($_POST['password'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+$response = [
+    'status' => '',
+    'message' => '',
+    'data' => [],
+];
 
-    $query = "SELECT * FROM \"user\" WHERE username = '$username'";
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405); // Method Not Allowed
+    $response['status'] = 'METHOD NOT ALLOWED';
+    $response['message'] = 'Only POST requests are allowed';
+} else {
+    $post_data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-    if (pg_send_query($db, $query)) {
-        $res = pg_get_result($db);
-        if ($res) {
-            $state = pg_result_error_field($res, PGSQL_DIAG_SQLSTATE);
-            if ($state == 0) {
-                if (pg_num_rows($res) >= 1) {
-                    $row = pg_fetch_assoc($res);
-                    $hashedPassword = $row['password'];
+    if (empty($post_data['username']) || empty($post_data['password'])) {
+        http_response_code(400); // Bad Request
+        $response['status'] = 'BAD REQUEST';
+        $response['message'] = 'Please fill all fields';
+    } else {
+        $username = $post_data['username'];
+        $password = $post_data['password'];
 
-                    if (password_verify($password, $hashedPassword)) {
-                        $data = array();
-                        $row['password'] = $password;
-                        $data[0] = $row;
-                        $response['status'] = 'success';
-                        $response['message'] = 'Login success';
-                        $response['data'] = $data;
-                    } else {
-                        $response['status'] = 'error';
-                        $response['message'] = 'Username or password is wrong';
-                        $response['data'] = array();
-                    }
+        $query = "SELECT * FROM \"user\" WHERE username = '$username'";
+
+        if ($result = pg_query($db, $query)) {
+            if (pg_num_rows($result) >= 1) {
+                $row = pg_fetch_assoc($result);
+                $hashedPassword = $row['password'];
+
+                if (password_verify($password, $hashedPassword)) {
+                    $response['status'] = 'OK';
+                    $response['message'] = 'Login success';
+                    $row['password'] = $password;
+                    $response['data'][] = $row;
                 } else {
-                    $response['status'] = 'error';
+                    http_response_code(401); // Unauthorized
+                    $response['status'] = 'UNAUTHORIZED';
                     $response['message'] = 'Username or password is wrong';
-                    $response['data'] = array();
                 }
             } else {
-                $response['status'] = 'error';
-                $response['message'] = pg_result_error($res);
-                $response['data'] = array();
+                http_response_code(401); // Unauthorized
+                $response['status'] = 'UNAUTHORIZED';
+                $response['message'] = 'Username or password is wrong';
             }
+
+            pg_free_result($result);
+        } else {
+            http_response_code(500); // Internal Server Error
+            $response['status'] = 'INTERNAL SERVER ERROR';
+            $response['message'] = pg_last_error($db);
         }
     }
-} else {
-    $response['status'] = 'error';
-    $response['message'] = 'Please fill all fields';
-    $response['data'] = array();
 }
 
 echo json_encode($response, JSON_PRETTY_PRINT);
