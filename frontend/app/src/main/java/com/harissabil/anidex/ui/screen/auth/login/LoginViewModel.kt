@@ -71,32 +71,19 @@ class LoginViewModel @Inject constructor(
                     }
 
                     is Resource.Success -> {
-                        if (result.data!!.status == "success") {
-                            val user = UserModel(
-                                username = result.data.data!![0].username,
-                                password = result.data.data[0].password,
-                                name = result.data.data[0].name,
-                                email = result.data.data[0].email,
-                                true
-                            )
-                            setUser(user)
-                            _state.value = state.value.copy(
-                                isLoading = false,
-                                message = result.data.message,
-                                isLoginSuccess = true
-                            )
-                        } else if (result.data.status == "error") {
-                            _eventFlow.emit(
-                                UIEvent.ShowSnackbar(
-                                    result.data.message
-                                )
-                            )
-                            _state.value = state.value.copy(
-                                isLoading = false,
-                                message = result.data.message,
-                                isLoginSuccess = false
-                            )
-                        }
+                        val user = UserModel(
+                            username = result.data?.data!![0].username,
+                            password = result.data.data[0].password,
+                            name = result.data.data[0].name,
+                            email = result.data.data[0].email,
+                            true
+                        )
+                        setUser(user)
+                        _state.value = state.value.copy(
+                            isLoading = false,
+                            message = result.data.message,
+                            isLoginSuccess = true
+                        )
                     }
                 }
             }

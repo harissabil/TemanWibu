@@ -86,32 +86,19 @@ class RegisterViewModel @Inject constructor(
                     }
 
                     is Resource.Success -> {
-                        if (result.data!!.status == "success") {
-                            val user = UserModel(
-                                username = username.value,
-                                password = password.value,
-                                name = name.value,
-                                email = email.value,
-                                true
-                            )
-                            setUser(user)
-                            _state.value = state.value.copy(
-                                isLoading = false,
-                                message = result.data.message,
-                                isRegisterSuccess = true
-                            )
-                        } else if (result.data.status == "error") {
-                            _eventFlow.emit(
-                                UIEvent.ShowSnackbar(
-                                    result.data.message
-                                )
-                            )
-                            _state.value = state.value.copy(
-                                isLoading = false,
-                                message = result.data.message,
-                                isRegisterSuccess = false
-                            )
-                        }
+                        val user = UserModel(
+                            username = username.value,
+                            password = password.value,
+                            name = name.value,
+                            email = email.value,
+                            true
+                        )
+                        setUser(user)
+                        _state.value = state.value.copy(
+                            isLoading = false,
+                            message = result.data!!.message,
+                            isRegisterSuccess = true
+                        )
                     }
                 }
             }

@@ -22,9 +22,10 @@ android {
             useSupportLibrary = true
         }
 
-        val backendUrl: String = com.android.build.gradle.internal.cxx.configure.gradleLocalProperties(
-            rootDir
-        ).getProperty("BACKEND_URL")
+        val backendUrl: String =
+            com.android.build.gradle.internal.cxx.configure.gradleLocalProperties(
+                rootDir
+            ).getProperty("BACKEND_URL")
 
         buildConfigField("String", "BACKEND_URL", backendUrl)
     }

@@ -46,7 +46,7 @@ class LibraryViewModel @Inject constructor(
                     is Resource.Error -> {
                         _eventFlow.emit(
                             UIEvent.ShowSnackbar(
-                                result.data?.message ?: "Oops, something went wrong!"
+                                result.data?.message ?: "Unknown error"
                             )
                         )
                     }
@@ -73,7 +73,7 @@ class LibraryViewModel @Inject constructor(
                     is Resource.Error -> {
                         _eventFlow.emit(
                             UIEvent.ShowSnackbar(
-                                result.data?.message ?: "Oops, something went wrong!"
+                                result.data?.message ?: "Unknown error"
                             )
                         )
                     }
@@ -107,7 +107,7 @@ class LibraryViewModel @Inject constructor(
                     }
 
                     is Resource.Loading -> {
-
+                        _state.value = state.value.copy(isLoading = true)
                     }
                 }
             }

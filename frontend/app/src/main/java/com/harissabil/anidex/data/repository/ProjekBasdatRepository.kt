@@ -1,5 +1,6 @@
 package com.harissabil.anidex.data.repository
 
+import com.google.gson.Gson
 import com.harissabil.anidex.data.remote.projekbasdat.ProjekBasdatApi
 import com.harissabil.anidex.data.remote.projekbasdat.dto.auth.LoginResponse
 import com.harissabil.anidex.data.remote.projekbasdat.dto.auth.RegisterResponse
@@ -33,19 +34,13 @@ class ProjekBasdatRepository @Inject constructor(
             val response = api.register(username, password, name, email)
             emit(Resource.Success(response))
         } catch (e: HttpException) {
-            emit(
-                Resource.Error(
-                    message = "Oops, something went wrong!",
-                    data = null
-                )
-            )
+            val errorMessage = e.response()?.message() ?: "Unknown error"
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse: RegisterResponse? =
+                Gson().fromJson(errorBody, RegisterResponse::class.java)
+            emit(Resource.Error(message = errorMessage, data = errorResponse))
         } catch (e: IOException) {
-            emit(
-                Resource.Error(
-                    message = "Couldn't reach server, check your internet connection.",
-                    data = null
-                )
-            )
+            emit(Resource.Error(message = e.message ?: "Network error", data = null))
         }
     }
 
@@ -58,19 +53,13 @@ class ProjekBasdatRepository @Inject constructor(
             val response = api.login(username, password)
             emit(Resource.Success(response))
         } catch (e: HttpException) {
-            emit(
-                Resource.Error(
-                    message = "Oops, something went wrong!",
-                    data = null
-                )
-            )
+            val errorMessage = e.response()?.message() ?: "Unknown error"
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse: LoginResponse? =
+                Gson().fromJson(errorBody, LoginResponse::class.java)
+            emit(Resource.Error(message = errorMessage, data = errorResponse))
         } catch (e: IOException) {
-            emit(
-                Resource.Error(
-                    message = "Couldn't reach server, check your internet connection.",
-                    data = null
-                )
-            )
+            emit(Resource.Error(message = e.message ?: "Network error", data = null))
         }
     }
 
@@ -83,19 +72,13 @@ class ProjekBasdatRepository @Inject constructor(
             val response = api.checkLibrary(username, animeId)
             emit(Resource.Success(response))
         } catch (e: HttpException) {
-            emit(
-                Resource.Error(
-                    message = e.message(),
-                    data = null
-                )
-            )
+            val errorMessage = e.response()?.message() ?: "Unknown error"
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse: CheckLibraryResponse? =
+                Gson().fromJson(errorBody, CheckLibraryResponse::class.java)
+            emit(Resource.Error(message = errorMessage, data = errorResponse))
         } catch (e: IOException) {
-            emit(
-                Resource.Error(
-                    message = e.localizedMessage,
-                    data = null
-                )
-            )
+            emit(Resource.Error(message = e.message ?: "Network error", data = null))
         }
     }
 
@@ -125,19 +108,13 @@ class ProjekBasdatRepository @Inject constructor(
             )
             emit(Resource.Success(response))
         } catch (e: HttpException) {
-            emit(
-                Resource.Error(
-                    message = e.message(),
-                    data = null
-                )
-            )
+            val errorMessage = e.response()?.message() ?: "Unknown error"
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse: CreateLibraryResponse? =
+                Gson().fromJson(errorBody, CreateLibraryResponse::class.java)
+            emit(Resource.Error(message = errorMessage, data = errorResponse))
         } catch (e: IOException) {
-            emit(
-                Resource.Error(
-                    message = e.localizedMessage,
-                    data = null
-                )
-            )
+            emit(Resource.Error(message = e.message ?: "Network error", data = null))
         }
     }
 
@@ -163,19 +140,13 @@ class ProjekBasdatRepository @Inject constructor(
             )
             emit(Resource.Success(response))
         } catch (e: HttpException) {
-            emit(
-                Resource.Error(
-                    message = e.message(),
-                    data = null
-                )
-            )
+            val errorMessage = e.response()?.message() ?: "Unknown error"
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse: CreateLibraryResponse? =
+                Gson().fromJson(errorBody, CreateLibraryResponse::class.java)
+            emit(Resource.Error(message = errorMessage, data = errorResponse))
         } catch (e: IOException) {
-            emit(
-                Resource.Error(
-                    message = e.localizedMessage,
-                    data = null
-                )
-            )
+            emit(Resource.Error(message = e.message ?: "Network error", data = null))
         }
     }
 
@@ -205,19 +176,13 @@ class ProjekBasdatRepository @Inject constructor(
             )
             emit(Resource.Success(response))
         } catch (e: HttpException) {
-            emit(
-                Resource.Error(
-                    message = e.message(),
-                    data = null
-                )
-            )
+            val errorMessage = e.response()?.message() ?: "Unknown error"
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse: UpdateLibraryResponse? =
+                Gson().fromJson(errorBody, UpdateLibraryResponse::class.java)
+            emit(Resource.Error(message = errorMessage, data = errorResponse))
         } catch (e: IOException) {
-            emit(
-                Resource.Error(
-                    message = e.localizedMessage,
-                    data = null
-                )
-            )
+            emit(Resource.Error(message = e.message ?: "Network error", data = null))
         }
     }
 
@@ -243,19 +208,13 @@ class ProjekBasdatRepository @Inject constructor(
             )
             emit(Resource.Success(response))
         } catch (e: HttpException) {
-            emit(
-                Resource.Error(
-                    message = e.message(),
-                    data = null
-                )
-            )
+            val errorMessage = e.response()?.message() ?: "Unknown error"
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse: UpdateLibraryResponse? =
+                Gson().fromJson(errorBody, UpdateLibraryResponse::class.java)
+            emit(Resource.Error(message = errorMessage, data = errorResponse))
         } catch (e: IOException) {
-            emit(
-                Resource.Error(
-                    message = e.localizedMessage,
-                    data = null
-                )
-            )
+            emit(Resource.Error(message = e.message ?: "Network error", data = null))
         }
     }
 
@@ -265,19 +224,13 @@ class ProjekBasdatRepository @Inject constructor(
             val response = api.readLibrary(username)
             emit(Resource.Success(response))
         } catch (e: HttpException) {
-            emit(
-                Resource.Error(
-                    message = e.message(),
-                    data = null
-                )
-            )
+            val errorMessage = e.response()?.message() ?: "Unknown error"
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse: ReadLibraryResponse? =
+                Gson().fromJson(errorBody, ReadLibraryResponse::class.java)
+            emit(Resource.Error(message = errorMessage, data = errorResponse))
         } catch (e: IOException) {
-            emit(
-                Resource.Error(
-                    message = e.localizedMessage,
-                    data = null
-                )
-            )
+            emit(Resource.Error(message = e.message ?: "Network error", data = null))
         }
     }
 
@@ -290,19 +243,13 @@ class ProjekBasdatRepository @Inject constructor(
             val response = api.deleteLibrary(username, animeId)
             emit(Resource.Success(response))
         } catch (e: HttpException) {
-            emit(
-                Resource.Error(
-                    message = e.message(),
-                    data = null
-                )
-            )
+            val errorMessage = e.response()?.message() ?: "Unknown error"
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse: DeleteLibraryResponse? =
+                Gson().fromJson(errorBody, DeleteLibraryResponse::class.java)
+            emit(Resource.Error(message = errorMessage, data = errorResponse))
         } catch (e: IOException) {
-            emit(
-                Resource.Error(
-                    message = e.localizedMessage,
-                    data = null
-                )
-            )
+            emit(Resource.Error(message = e.message ?: "Network error", data = null))
         }
     }
 
@@ -312,19 +259,13 @@ class ProjekBasdatRepository @Inject constructor(
             val response = api.readReview(username)
             emit(Resource.Success(response))
         } catch (e: HttpException) {
-            emit(
-                Resource.Error(
-                    message = e.message(),
-                    data = null
-                )
-            )
+            val errorMessage = e.response()?.message() ?: "Unknown error"
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse: ReadReviewResponse? =
+                Gson().fromJson(errorBody, ReadReviewResponse::class.java)
+            emit(Resource.Error(message = errorMessage, data = errorResponse))
         } catch (e: IOException) {
-            emit(
-                Resource.Error(
-                    message = e.localizedMessage,
-                    data = null
-                )
-            )
+            emit(Resource.Error(message = e.message ?: "Network error", data = null))
         }
     }
 
@@ -334,19 +275,13 @@ class ProjekBasdatRepository @Inject constructor(
             val response = api.readAllReview()
             emit(Resource.Success(response))
         } catch (e: HttpException) {
-            emit(
-                Resource.Error(
-                    message = e.message(),
-                    data = null
-                )
-            )
+            val errorMessage = e.response()?.message() ?: "Unknown error"
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse: ReadAllReviewResponse? =
+                Gson().fromJson(errorBody, ReadAllReviewResponse::class.java)
+            emit(Resource.Error(message = errorMessage, data = errorResponse))
         } catch (e: IOException) {
-            emit(
-                Resource.Error(
-                    message = e.localizedMessage,
-                    data = null
-                )
-            )
+            emit(Resource.Error(message = e.message ?: "Network error", data = null))
         }
     }
 
@@ -358,19 +293,13 @@ class ProjekBasdatRepository @Inject constructor(
             val response = api.deleteReview(reviewId)
             emit(Resource.Success(response))
         } catch (e: HttpException) {
-            emit(
-                Resource.Error(
-                    message = e.message(),
-                    data = null
-                )
-            )
+            val errorMessage = e.response()?.message() ?: "Unknown error"
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse: DeleteReviewResponse? =
+                Gson().fromJson(errorBody, DeleteReviewResponse::class.java)
+            emit(Resource.Error(message = errorMessage, data = errorResponse))
         } catch (e: IOException) {
-            emit(
-                Resource.Error(
-                    message = e.localizedMessage,
-                    data = null
-                )
-            )
+            emit(Resource.Error(message = e.message ?: "Network error", data = null))
         }
     }
 }

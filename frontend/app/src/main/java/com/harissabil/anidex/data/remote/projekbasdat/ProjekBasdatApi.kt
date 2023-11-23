@@ -10,10 +10,13 @@ import com.harissabil.anidex.data.remote.projekbasdat.dto.library.UpdateLibraryR
 import com.harissabil.anidex.data.remote.projekbasdat.dto.review.DeleteReviewResponse
 import com.harissabil.anidex.data.remote.projekbasdat.dto.review.ReadAllReviewResponse
 import com.harissabil.anidex.data.remote.projekbasdat.dto.review.ReadReviewResponse
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ProjekBasdatApi {
 
@@ -33,11 +36,10 @@ interface ProjekBasdatApi {
         @Field("password") password: String
     ): LoginResponse
 
-    @FormUrlEncoded
-    @POST("library/check.php")
+    @GET("library/check.php")
     suspend fun checkLibrary(
-        @Field("username") username: String,
-        @Field("anime_id") animeId: Int,
+        @Query("username") username: String,
+        @Query("anime_id") animeId: Int,
     ): CheckLibraryResponse
 
     @FormUrlEncoded
@@ -66,10 +68,9 @@ interface ProjekBasdatApi {
         @Field("episode") episode: Int,
     ): CreateLibraryResponse
 
-    @FormUrlEncoded
-    @POST("library/read.php")
+    @GET("library/read.php/{username}")
     suspend fun readLibrary(
-        @Field("username") username: String,
+        @Path("username") username: String,
     ): ReadLibraryResponse
 
     @FormUrlEncoded
@@ -98,25 +99,22 @@ interface ProjekBasdatApi {
         @Field("episode") episode: Int,
     ): UpdateLibraryResponse
 
-    @FormUrlEncoded
-    @POST("library/delete.php")
+    @DELETE("library/delete.php")
     suspend fun deleteLibrary(
-        @Field("username") username: String,
-        @Field("anime_id") animeId: Int,
+        @Query("username") username: String,
+        @Query("anime_id") animeId: Int,
     ): DeleteLibraryResponse
 
-    @FormUrlEncoded
-    @POST("review/read.php")
+    @GET("review/read.php/{username}")
     suspend fun readReview(
-        @Field("username") username: String,
+        @Path("username") username: String,
     ): ReadReviewResponse
 
     @GET("review/readAll.php")
     suspend fun readAllReview(): ReadAllReviewResponse
 
-    @FormUrlEncoded
-    @POST("review/delete.php")
+    @DELETE("review/delete.php/{review_id}")
     suspend fun deleteReview(
-        @Field("review_id") reviewId: Int,
+        @Path("review_id") reviewId: Int,
     ): DeleteReviewResponse
 }
