@@ -39,12 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                 } else {
                     http_response_code(401); // Unauthorized
                     $response['status'] = 'UNAUTHORIZED';
-                    $response['message'] = 'Username or password is wrong';
+                    $response['message'] = 'Password is incorrect';
                 }
             } else {
-                http_response_code(401); // Unauthorized
-                $response['status'] = 'UNAUTHORIZED';
-                $response['message'] = 'Username or password is wrong';
+                http_response_code(404); // Not Found
+                $response['status'] = 'NOT FOUND';
+                $response['message'] = 'User not found';
             }
 
             pg_free_result($result);

@@ -21,22 +21,41 @@ if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
         $response['status'] = 'BAD REQUEST';
         $response['message'] = 'Please provide the review_id';
     } else {
-        $review_id = (int) $segments[$deleteIndex + 1];
+        $review_id = (int)$segments[$deleteIndex + 1];
 
+        $checkIfReviewTableExist = "SELECT * FROM \"review\" WHERE review_id = '$review_id'";
         $deleteFromReviewTable = "DELETE FROM \"review\" WHERE review_id = '$review_id'";
 
-        if (pg_send_query($db, $deleteFromReviewTable)) {
-            $resDeleteReview = pg_get_result($db);
-            if ($resDeleteReview) {
-                $state = pg_result_error_field($resDeleteReview, PGSQL_DIAG_SQLSTATE);
+        if (pg_send_query($db, $checkIfReviewTableExist)) {
+            $res = pg_get_result($db);
+            if ($res) {
+                $state = pg_result_error_field($res, PGSQL_DIAG_SQLSTATE);
                 if ($state == 0) {
-                    // success delete review
-                    $response['status'] = 'OK';
-                    $response['message'] = 'Delete success';
+                    if (pg_num_rows($res) >= 1) {
+                        if (pg_send_query($db, $deleteFromReviewTable)) {
+                            $res = pg_get_result($db);
+                            if ($res) {
+                                $state = pg_result_error_field($res, PGSQL_DIAG_SQLSTATE);
+                                if ($state == 0) {
+                                    // success delete review
+                                    $response['status'] = 'OK';
+                                    $response['message'] = 'Delete success';
+                                } else {
+                                    http_response_code(500); // Internal Server Error
+                                    $response['status'] = 'INTERNAL SERVER ERROR';
+                                    $response['message'] = pg_result_error($res);
+                                }
+                            }
+                        }
+                    } else {
+                        http_response_code(404); // Not Found
+                        $response['status'] = 'NOT FOUND';
+                        $response['message'] = 'Review not found';
+                    }
                 } else {
                     http_response_code(500); // Internal Server Error
                     $response['status'] = 'INTERNAL SERVER ERROR';
-                    $response['message'] = pg_result_error($resDeleteReview);
+                    $response['message'] = pg_result_error($res);
                 }
             }
         }
