@@ -74,7 +74,7 @@ interface ProjekBasdatApi {
     ): ReadLibraryResponse
 
     @FormUrlEncoded
-    @POST("library/update.php")
+    @PUT("library/update.php")
     suspend fun updateLibrary(
         @Field("username") username: String,
         @Field("anime_id") animeId: Int,
@@ -88,7 +88,7 @@ interface ProjekBasdatApi {
     ): UpdateLibraryResponse
 
     @FormUrlEncoded
-    @POST("library/update.php")
+    @PUT("library/update.php")
     suspend fun updateLibraryWithoutReview(
         @Field("username") username: String,
         @Field("anime_id") animeId: Int,
