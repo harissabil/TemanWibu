@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
             $state = pg_result_error_field($res, PGSQL_DIAG_SQLSTATE);
             if ($state == 0) {
                 $response['status'] = 'OK';
-                $response['message'] = 'Read success';
+                $response['message'] = 'Review successfully retrieved';
                 $response['data'] = array();
                 while ($row = pg_fetch_assoc($res)) {
                     $row['review_id'] = (int)$row['review_id'];

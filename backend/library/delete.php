@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
                                     }
 
                                     $response['status'] = 'OK';
-                                    $response['message'] = 'Delete success';
+                                    $response['message'] = 'Library deleted';
 
                                 } else {
                                     http_response_code(500); // Internal Server Error

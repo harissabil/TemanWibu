@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
                                 if ($state == 0) {
                                     // success delete review
                                     $response['status'] = 'OK';
-                                    $response['message'] = 'Delete success';
+                                    $response['message'] = 'Review deleted';
                                 } else {
                                     http_response_code(500); // Internal Server Error
                                     $response['status'] = 'INTERNAL SERVER ERROR';

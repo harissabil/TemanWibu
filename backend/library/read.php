@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
                             $i++;
                         }
                         $response['status'] = 'OK';
-                        $response['message'] = 'Get library success';
+                        $response['message'] = 'Library is not empty';
                         $response['data'] = $data;
                     } else {
                         $response['status'] = 'OK';

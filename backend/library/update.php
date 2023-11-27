@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'PUT') {
                 $state = pg_result_error_field($res, PGSQL_DIAG_SQLSTATE);
                 if ($state == 0) {
                     $response['status'] = 'OK';
-                    $response['message'] = 'Updated library';
+                    $response['message'] = 'Library updated';
                 } else {
                     http_response_code(500); // Internal Server Error
                     $response['status'] = 'INTERNAL SERVER ERROR';
