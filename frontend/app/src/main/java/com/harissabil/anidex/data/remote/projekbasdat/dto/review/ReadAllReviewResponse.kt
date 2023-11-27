@@ -10,6 +10,7 @@ data class AllReviewData(
     val anime_id: String,
     val anime_review: String,
     val anime_score: String,
+    val review_date: String,
     val episode: String,
     val poster_image: String,
     val rating: String,
