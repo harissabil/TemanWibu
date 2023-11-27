@@ -89,7 +89,11 @@ class DetailViewModel @Inject constructor(
                 }
 
                 is Resource.Error -> {
-                    _eventFlow.emit(UIEvent.ShowSnackbar(result.message.toString()))
+                    _eventFlow.emit(
+                        UIEvent.ShowSnackbar(
+                            result.data?.message ?: result.message ?: "Oops, something went wrong."
+                        )
+                    )
                     _isAddedToLibrary.value = result.data?.available ?: false
                     _libraryStatus.value = result.data?.anime_status ?: ""
                     if (!result.data?.review_data.isNullOrEmpty()) {
@@ -175,7 +179,7 @@ class DetailViewModel @Inject constructor(
                 }
 
                 is Resource.Error -> {
-                    _eventFlow.emit(UIEvent.ShowSnackbar(result.data?.message.toString()))
+                    _eventFlow.emit(UIEvent.ShowSnackbar(result.message ?: "Unknown error"))
                 }
 
                 is Resource.Loading -> {
@@ -210,7 +214,11 @@ class DetailViewModel @Inject constructor(
                 }
 
                 is Resource.Error -> {
-                    _eventFlow.emit(UIEvent.ShowSnackbar(result.data?.message.toString()))
+                    _eventFlow.emit(
+                        UIEvent.ShowSnackbar(
+                            result.data?.message ?: result.message ?: "Oops, something went wrong."
+                        )
+                    )
                 }
 
                 is Resource.Loading -> {
@@ -249,7 +257,11 @@ class DetailViewModel @Inject constructor(
                 }
 
                 is Resource.Error -> {
-                    _eventFlow.emit(UIEvent.ShowSnackbar(result.data?.message.toString()))
+                    _eventFlow.emit(
+                        UIEvent.ShowSnackbar(
+                            result.data?.message ?: result.message ?: "Oops, something went wrong."
+                        )
+                    )
                 }
 
                 is Resource.Loading -> {
@@ -284,7 +296,11 @@ class DetailViewModel @Inject constructor(
                 }
 
                 is Resource.Error -> {
-                    _eventFlow.emit(UIEvent.ShowSnackbar(result.data?.message.toString()))
+                    _eventFlow.emit(
+                        UIEvent.ShowSnackbar(
+                            result.data?.message ?: result.message ?: "Oops, something went wrong."
+                        )
+                    )
                 }
 
                 is Resource.Loading -> {
@@ -307,7 +323,12 @@ class DetailViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> {
-                        _eventFlow.emit(UIEvent.ShowSnackbar(result.data?.message.toString()))
+                        _eventFlow.emit(
+                            UIEvent.ShowSnackbar(
+                                result.data?.message ?: result.message
+                                ?: "Oops, something went wrong."
+                            )
+                        )
                     }
 
                     is Resource.Loading -> {

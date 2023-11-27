@@ -44,8 +44,12 @@ class ForumViewModel @Inject constructor(
                     is Resource.Error -> {
                         _eventFlow.emit(
                             UIEvent.ShowSnackbar(
-                                result.data?.message ?: "Unknown error"
+                                result.data?.message ?: result.message
+                                ?: "Oops, something went wrong."
                             )
+                        )
+                        _state.value = state.value.copy(
+                            isLoading = false
                         )
                     }
 
@@ -78,7 +82,12 @@ class ForumViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> {
-                        _eventFlow.emit(UIEvent.ShowSnackbar(result.data?.message.toString()))
+                        _eventFlow.emit(
+                            UIEvent.ShowSnackbar(
+                                result.data?.message ?: result.message
+                                ?: "Oops, something went wrong."
+                            )
+                        )
                     }
 
                     is Resource.Loading -> {
