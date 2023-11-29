@@ -33,10 +33,15 @@ This project was created to fulfill the final assignment for the Database subjec
     <tr>
       <td><img src="assets/screenshot/home.png?raw=true"/></td>
       <td><img src="assets/screenshot/detail.png?raw=true"/></td>
-      <td><img src="assets/screenshot/search.png?raw=true"/></td>
+      <td><img src="assets/screenshot/detail_add_to_library.png?raw=true"/></td>
     </tr>
     <tr>
+      <td><img src="assets/screenshot/detail_view_review.png?raw=true"/></td>
+      <td><img src="assets/screenshot/search.png?raw=true"/></td>
       <td><img src="assets/screenshot/library.png?raw=true"/></td>
+    </tr>
+    <tr>
+      <td><img src="assets/screenshot/library_review.png?raw=true"/></td>
       <td><img src="assets/screenshot/forum.png?raw=true"/></td>
       <td><img src="assets/screenshot/profile.png?raw=true"/></td>
     </tr>
