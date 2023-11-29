@@ -5,10 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.harissabil.anidex.data.local.UserPreference
+import com.harissabil.anidex.data.remote.projekbasdat.dto.library.Data
 import com.harissabil.anidex.data.repository.ProjekBasdatRepository
 import com.harissabil.anidex.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -27,7 +29,22 @@ class LibraryViewModel @Inject constructor(
     private val _state = mutableStateOf(LibraryScreenUIState())
     val state: State<LibraryScreenUIState> = _state
 
+    private val animeLibrary = mutableStateOf<List<Data>>(emptyList())
+
+    private val filteredAnimeType: MutableStateFlow<FilterType> =
+        MutableStateFlow(FilterType.NONE)
+
     private var usernamePref = mutableStateOf("")
+
+    fun updateFilterType(newFilter: FilterType) {
+        filteredAnimeType.value = newFilter
+        _state.value = state.value.copy(
+            libraryAnime = when (newFilter) {
+                FilterType.NONE -> animeLibrary.value
+                else -> animeLibrary.value.filter { it.current_status == newFilter.value }
+            }
+        )
+    }
 
     private fun getUser() {
         viewModelScope.launch {
@@ -58,10 +75,17 @@ class LibraryViewModel @Inject constructor(
                         isLoading = true,
                     )
 
-                    is Resource.Success -> _state.value = state.value.copy(
-                        isLoading = false,
-                        libraryAnime = result.data?.data ?: emptyList(),
-                    )
+                    is Resource.Success -> {
+                        _state.value = state.value.copy(
+                            isLoading = false,
+                            libraryAnime = when (filteredAnimeType.value) {
+                                FilterType.NONE -> result.data?.data ?: emptyList()
+                                else -> result.data?.data?.filter { it.current_status == filteredAnimeType.value.value }
+                                    ?: emptyList()
+                            },
+                        )
+                        animeLibrary.value = result.data?.data ?: emptyList()
+                    }
                 }
             }
         }
@@ -109,7 +133,12 @@ class LibraryViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> {
-                        _eventFlow.emit(UIEvent.ShowSnackbar(result.data?.message ?: result.message ?: "Oops, something went wrong."))
+                        _eventFlow.emit(
+                            UIEvent.ShowSnackbar(
+                                result.data?.message ?: result.message
+                                ?: "Oops, something went wrong."
+                            )
+                        )
                     }
 
                     is Resource.Loading -> {

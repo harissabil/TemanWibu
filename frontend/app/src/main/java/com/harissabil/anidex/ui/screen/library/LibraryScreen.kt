@@ -56,13 +56,18 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.harissabil.anidex.R
+import com.harissabil.anidex.ui.components.button.FilterFab
 import com.harissabil.anidex.ui.components.library.AnimeLibraryListItem
 import com.harissabil.anidex.ui.components.library.AnimeReviewListItem
 import com.harissabil.anidex.ui.components.library.LibraryTabs
+import com.leinardi.android.speeddial.compose.SpeedDialOverlay
+import com.leinardi.android.speeddial.compose.SpeedDialState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
+@OptIn(
+    ExperimentalFoundationApi::class, ExperimentalMaterialApi::class
+)
 @Composable
 fun LibraryScreen(
     viewModel: LibraryViewModel = hiltViewModel(),
@@ -88,6 +93,8 @@ fun LibraryScreen(
         refreshing = state.isLoading,
         onRefresh = viewModel::readReview
     )
+    var speedDialState by rememberSaveable { mutableStateOf(SpeedDialState.Collapsed) }
+    var overlayVisible: Boolean by rememberSaveable { mutableStateOf(speedDialState.isExpanded()) }
     val newItemAdded: Boolean by remember(lazyListState) {
         derivedStateOf { lazyListState.firstVisibleItemIndex <= 1 }
     }
@@ -123,8 +130,33 @@ fun LibraryScreen(
         }
     }
 
+    fun onFabItemClick(filterType: FilterType) {
+        overlayVisible = false
+        speedDialState = speedDialState.toggle()
+        viewModel.updateFilterType(filterType)
+        scope.launch {
+            lazyListState.animateScrollToItem(0)
+        }
+    }
+
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
+        floatingActionButton = {
+            if (selectedIndex == 0) {
+                FilterFab(
+                    speedDialState = speedDialState,
+                    onFabClick = { expanded ->
+                        overlayVisible = !expanded
+                        speedDialState = speedDialState.toggle()
+                    },
+                    onNoneClick = { onFabItemClick(it) },
+                    onWishlistClick = { onFabItemClick(it) },
+                    onWatchlistClick = { onFabItemClick(it) },
+                    onFinishedClick = { onFabItemClick(it) },
+                    listState = lazyListState,
+                )
+            }
+        },
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
     ) { innerPadding ->
         Column(
@@ -156,6 +188,14 @@ fun LibraryScreen(
                 )
             }
         }
+        SpeedDialOverlay(
+            visible = overlayVisible,
+            onClick = {
+                overlayVisible = false
+                speedDialState = speedDialState.toggle()
+            },
+            modifier = Modifier.fillMaxSize()
+        )
     }
 }
 
