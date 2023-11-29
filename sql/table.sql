@@ -41,5 +41,6 @@ create table "review"
     anime_id     integer
         references anime,
     anime_review text,
-    anime_score  double precision
+    anime_score  double precision,
+    review_date  timestamp with time zone
 );
