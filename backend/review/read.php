@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     } else {
         $username = $segments[$deleteIndex + 1];
 
-        $query = "SELECT * FROM \"review\" JOIN \"anime\" USING (anime_id) WHERE username = '$username' ORDER BY anime_id DESC";
+        $query = "SELECT * FROM \"review\" JOIN \"anime\" USING (anime_id) WHERE username = '$username' ORDER BY review_date DESC";
         if (pg_send_query($db, $query)) {
             $res = pg_get_result($db);
             if ($res) {
