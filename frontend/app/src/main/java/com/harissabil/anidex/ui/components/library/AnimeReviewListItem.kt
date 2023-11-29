@@ -17,8 +17,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.FilterQuality
@@ -34,6 +36,7 @@ import com.gowtham.ratingbar.RatingBar
 import com.gowtham.ratingbar.RatingBarStyle
 import com.gowtham.ratingbar.StepSize
 import com.harissabil.anidex.ui.theme.spacing
+import com.harissabil.anidex.util.localizeDate
 
 @Composable
 fun AnimeReviewListItem(
@@ -42,79 +45,95 @@ fun AnimeReviewListItem(
     onReviewDeleted: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable { onAnimeClicked(anime.anime_id) }
-            .padding(8.dp)
+    Column(
+        modifier = Modifier.clickable { onAnimeClicked(anime.anime_id) }
     ) {
-        AsyncImage(
-            model = ImageRequest.Builder(context = LocalContext.current)
-                .data(data = anime.poster_image)
-                .memoryCachePolicy(CachePolicy.ENABLED)
-                .memoryCacheKey(anime.anime_id)
-                .diskCachePolicy(CachePolicy.ENABLED)
-                .diskCacheKey(anime.anime_id)
-                .allowHardware(false)
-                .allowRgb565(true)
-                .crossfade(enable = true)
-                .build(),
-            contentDescription = "Cover Image from Anime ${anime.title}",
-            contentScale = ContentScale.Crop,
-            colorFilter = ColorFilter.colorMatrix(
-                colorMatrix = ColorMatrix().apply {
-                    setToSaturation(sat = 0.85F)
-                }
-            ),
-            filterQuality = FilterQuality.Medium,
-            modifier = Modifier
-                .width(100.dp)
-                .aspectRatio(5f / 7f)
-                .clip(RoundedCornerShape(MaterialTheme.spacing.small))
-                .clickable {
-                    onAnimeClicked(anime.anime_id)
-                }
-        )
-        Column(
-            modifier = Modifier
-                .padding(
-                    start = 16.dp,
-                    end = 8.dp
-                )
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(8.dp)
         ) {
-            Row {
-                Column(
-                    modifier = Modifier.weight(1f, fill = true)
-                ) {
-                    Text(
-                        text = anime.title,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
+            AsyncImage(
+                model = ImageRequest.Builder(context = LocalContext.current)
+                    .data(data = anime.poster_image)
+                    .memoryCachePolicy(CachePolicy.ENABLED)
+                    .memoryCacheKey(anime.anime_id)
+                    .diskCachePolicy(CachePolicy.ENABLED)
+                    .diskCacheKey(anime.anime_id)
+                    .allowHardware(false)
+                    .allowRgb565(true)
+                    .crossfade(enable = true)
+                    .build(),
+                contentDescription = "Cover Image from Anime ${anime.title}",
+                contentScale = ContentScale.Crop,
+                colorFilter = ColorFilter.colorMatrix(
+                    colorMatrix = ColorMatrix().apply {
+                        setToSaturation(sat = 0.85F)
+                    }
+                ),
+                filterQuality = FilterQuality.Medium,
+                modifier = Modifier
+                    .width(100.dp)
+                    .aspectRatio(5f / 7f)
+                    .clip(RoundedCornerShape(MaterialTheme.spacing.small))
+                    .clickable {
+                        onAnimeClicked(anime.anime_id)
+                    }
+            )
+            Column(
+                modifier = Modifier
+                    .padding(
+                        start = 16.dp,
+                        end = 8.dp
                     )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    RatingBar(
-                        value = anime.anime_score.toFloat(),
-                        style = RatingBarStyle.Fill(
-                            activeColor = MaterialTheme.colorScheme.primary,
-                            inActiveColor = MaterialTheme.colorScheme.primary.copy(
-                                alpha = 0.3F
-                            )
-                        ),
-                        onValueChange = {},
-                        onRatingChanged = {},
-                        stepSize = StepSize.HALF,
-                        size = 16.dp,
-                        spaceBetween = 2.dp,
-                    )
+            ) {
+                Row {
+                    Column(
+                        modifier = Modifier.weight(1f, fill = true)
+                    ) {
+                        Text(
+                            text = anime.title,
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        RatingBar(
+                            value = anime.anime_score.toFloat(),
+                            style = RatingBarStyle.Fill(
+                                activeColor = MaterialTheme.colorScheme.primary,
+                                inActiveColor = MaterialTheme.colorScheme.primary.copy(
+                                    alpha = 0.3F
+                                )
+                            ),
+                            onValueChange = {},
+                            onRatingChanged = {},
+                            stepSize = StepSize.HALF,
+                            size = 16.dp,
+                            spaceBetween = 2.dp,
+                        )
+                    }
+                    IconButton(onClick = { onReviewDeleted(anime.review_id) }) {
+                        Icon(
+                            imageVector = Icons.Default.DeleteForever,
+                            contentDescription = "Delete Review"
+                        )
+                    }
                 }
-                IconButton(onClick = { onReviewDeleted(anime.review_id) }) {
-                    Icon(imageVector = Icons.Default.DeleteForever, contentDescription = "Delete Review")
-                }
+                Spacer(modifier = Modifier.height(8.dp))
+                ExpandableReviewText(text = "\"${anime.anime_review}\"")
             }
-            Spacer(modifier = Modifier.height(8.dp))
-            ExpandableReviewText(text = "\"${anime.anime_review}\"")
         }
+        Text(
+            text = localizeDate(anime.review_date),
+            style = MaterialTheme.typography.titleSmall,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            color = Color.Gray,
+            modifier = modifier
+                .align(Alignment.End)
+                .padding(start = 8.dp, end = 8.dp, bottom = 8.dp)
+        )
     }
 }

@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.FilterQuality
@@ -37,6 +38,7 @@ import com.gowtham.ratingbar.StepSize
 import com.harissabil.anidex.data.remote.projekbasdat.dto.review.AllReviewData
 import com.harissabil.anidex.ui.components.library.ExpandableReviewText
 import com.harissabil.anidex.ui.theme.spacing
+import com.harissabil.anidex.util.localizeDate
 
 @Composable
 fun AnimeAllReviewListItem(
@@ -128,21 +130,26 @@ fun AnimeAllReviewListItem(
                 ExpandableReviewText(text = "\"${anime.anime_review}\"")
             }
         }
-        Row(
+        Text(
+            text = localizeDate(anime.review_date),
+            style = MaterialTheme.typography.titleSmall,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            color = Color.Gray,
             modifier = modifier
                 .align(Alignment.End)
-                .padding(8.dp)
-        ) {
-            Text(text = "Reviewed by", style = MaterialTheme.typography.titleSmall)
-            Spacer(modifier = Modifier.width(4.dp))
-            Text(
-                text = if (username == anime.username) "You" else anime.username,
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                color = if (username == anime.username) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
-            )
-        }
+                .padding(horizontal = 8.dp)
+        )
+        Text(
+            text = if (username == anime.username) "You" else anime.username,
+            style = MaterialTheme.typography.titleSmall,
+            fontWeight = FontWeight.Bold,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            color = if (username == anime.username) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+            modifier = modifier
+                .align(Alignment.End)
+                .padding(start = 8.dp, end = 8.dp, bottom = 8.dp)
+        )
     }
 }
