@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.harissabil.anidex.data.local.UserPreference
 import com.harissabil.anidex.data.remote.anime.dto.AnimeByIdResponse
+import com.harissabil.anidex.data.remote.projekbasdat.dto.review.ReadAnimeReviewResponse
 import com.harissabil.anidex.data.repository.AnimeRepository
 import com.harissabil.anidex.data.repository.ProjekBasdatRepository
 import com.harissabil.anidex.util.Resource
@@ -33,6 +34,10 @@ class DetailViewModel @Inject constructor(
     private val _state: MutableStateFlow<Resource<AnimeByIdResponse>> =
         MutableStateFlow(Resource.Loading())
     val state: StateFlow<Resource<AnimeByIdResponse>> = _state.asStateFlow()
+
+    private val _reviewState: MutableStateFlow<Resource<ReadAnimeReviewResponse>> =
+        MutableStateFlow(Resource.Loading())
+    val reviewState: StateFlow<Resource<ReadAnimeReviewResponse>> = _reviewState.asStateFlow()
 
     private var usernamePref = mutableStateOf("")
 
@@ -338,6 +343,27 @@ class DetailViewModel @Inject constructor(
             }
         }
         _isAddedToLibrary.value = false
+    }
+
+    fun readAnimeReview(animeId: Int) {
+        viewModelScope.launch {
+            val reviews = repositoryBackend.readAnimeReview(animeId)
+            reviews.collectLatest { result ->
+                when (result) {
+                    is Resource.Error -> {
+                        _reviewState.value = result
+                    }
+
+                    is Resource.Loading -> {
+                        _reviewState.value = result
+                    }
+
+                    is Resource.Success -> {
+                        _reviewState.value = result
+                    }
+                }
+            }
+        }
     }
 
     init {

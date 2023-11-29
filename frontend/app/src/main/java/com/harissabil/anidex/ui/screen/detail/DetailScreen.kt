@@ -6,9 +6,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -18,11 +21,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MediumTopAppBar
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -61,15 +66,22 @@ fun DetailScreen(
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     val scrollState = rememberScrollState()
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val state = viewModel.state
     val isAddedToLibrary = viewModel.isAddedToLibrary
+    val reviewState = viewModel.reviewState
     val snackbarHostState = remember { SnackbarHostState() }
 
     var openDialog by rememberSaveable { mutableStateOf(false) }
+    var showBottomSheet by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(key1 = malId.toInt()) {
         viewModel.getAnimeById(malId.toInt())
         viewModel.checkIsAddedToLibrary(animeId = malId.toInt())
+    }
+
+    LaunchedEffect(key1 = showBottomSheet) {
+        viewModel.readAnimeReview(malId.toInt())
     }
 
     LaunchedEffect(key1 = true) {
@@ -187,11 +199,26 @@ fun DetailScreen(
                                 isAddedToLibrary = isAdded,
                                 onDeleteClicked = {
                                     viewModel.deleteLibrary()
+                                },
+                                onReviewButtonClicked = {
+                                    showBottomSheet = true
                                 }
                             )
                         }
                     }
                 }
+            }
+        }
+
+        reviewState.collectAsState().value.let { reviews ->
+            if (showBottomSheet) {
+                ReviewBottomSheet(
+                    onDismissRequest = { showBottomSheet = false },
+                    onClickRetry = { viewModel.readAnimeReview(malId.toInt()) },
+                    sheetState = sheetState,
+                    listState = rememberLazyListState(),
+                    reviews = reviews
+                )
             }
         }
     }
@@ -202,7 +229,8 @@ fun DetailContent(
     anime: Data,
     onAddToLibraryClick: () -> Unit,
     isAddedToLibrary: Boolean,
-    onDeleteClicked: () -> Unit
+    onDeleteClicked: () -> Unit,
+    onReviewButtonClicked: () -> Unit,
 ) {
     AnimeHeader(
         malId = anime.mal_id,
@@ -229,6 +257,15 @@ fun DetailContent(
         CardSection {
             AnimeSynopsis(anime = anime)
         }
+    }
+    OutlinedButton(
+        onClick = onReviewButtonClicked,
+        shape = RoundedCornerShape(8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = MaterialTheme.spacing.medium)
+    ) {
+        Text(text = "View All Reviews")
     }
     Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 }
