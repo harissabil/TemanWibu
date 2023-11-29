@@ -95,7 +95,7 @@ fun AddToLibraryDialog(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.FavoriteBorder,
-                                contentDescription = "Favorite Icon",
+                                contentDescription = "Wishlist Icon",
                                 tint = if (status == "WISHLIST") MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onBackground
                             )
                         }
@@ -121,7 +121,7 @@ fun AddToLibraryDialog(
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.CheckCircle,
-                                contentDescription = "Watched Icon",
+                                contentDescription = "Finished Icon",
                                 tint = if (status == "FINISHED") MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onBackground
                             )
                         }
