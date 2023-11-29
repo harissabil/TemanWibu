@@ -56,12 +56,12 @@ class LoginViewModel @Inject constructor(
                     is Resource.Error -> {
                         _eventFlow.emit(
                             UIEvent.ShowSnackbar(
-                                result.data?.message ?: "Unknown error"
+                                result.data?.message ?: result.message ?: "Oops, something went wrong."
                             )
                         )
                         _state.value = state.value.copy(
                             isLoading = false,
-                            message = result.data?.message ?: "Unknown error",
+                            message = result.data?.message ?: result.message ?: "Oops, something went wrong.",
                             isLoginSuccess = false
                         )
                     }
