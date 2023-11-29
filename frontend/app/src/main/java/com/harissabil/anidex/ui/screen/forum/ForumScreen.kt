@@ -66,7 +66,6 @@ fun ForumScreen(
     }
 
     if (newItemAdded) {
-        //scroll to top to ensure latest added book gets visible
         LaunchedEffect(key1 = state.isLoading) {
             scope.launch {
                 lazyListState.animateScrollToItem(0)
