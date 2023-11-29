@@ -11,6 +11,7 @@ import com.harissabil.anidex.data.remote.projekbasdat.dto.library.ReadLibraryRes
 import com.harissabil.anidex.data.remote.projekbasdat.dto.library.UpdateLibraryResponse
 import com.harissabil.anidex.data.remote.projekbasdat.dto.review.DeleteReviewResponse
 import com.harissabil.anidex.data.remote.projekbasdat.dto.review.ReadAllReviewResponse
+import com.harissabil.anidex.data.remote.projekbasdat.dto.review.ReadAnimeReviewResponse
 import com.harissabil.anidex.data.remote.projekbasdat.dto.review.ReadReviewResponse
 import com.harissabil.anidex.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -279,6 +280,24 @@ class ProjekBasdatRepository @Inject constructor(
             val errorBody = e.response()?.errorBody()?.string()
             val errorResponse: ReadAllReviewResponse? =
                 Gson().fromJson(errorBody, ReadAllReviewResponse::class.java)
+            emit(Resource.Error(message = errorMessage, data = errorResponse))
+        } catch (e: IOException) {
+            emit(Resource.Error(message = "Failed to connect to server", data = null))
+        }
+    }
+
+    fun readAnimeReview(
+        animeId: Int
+    ): Flow<Resource<ReadAnimeReviewResponse>> = flow {
+        emit(Resource.Loading())
+        try {
+            val response = api.readAnimeReview(animeId)
+            emit(Resource.Success(response))
+        } catch (e: HttpException) {
+            val errorMessage = e.response()?.message() ?: "Oops, something went wrong."
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse: ReadAnimeReviewResponse? =
+                Gson().fromJson(errorBody, ReadAnimeReviewResponse::class.java)
             emit(Resource.Error(message = errorMessage, data = errorResponse))
         } catch (e: IOException) {
             emit(Resource.Error(message = "Failed to connect to server", data = null))

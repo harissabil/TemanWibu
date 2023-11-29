@@ -9,6 +9,7 @@ import com.harissabil.anidex.data.remote.projekbasdat.dto.library.ReadLibraryRes
 import com.harissabil.anidex.data.remote.projekbasdat.dto.library.UpdateLibraryResponse
 import com.harissabil.anidex.data.remote.projekbasdat.dto.review.DeleteReviewResponse
 import com.harissabil.anidex.data.remote.projekbasdat.dto.review.ReadAllReviewResponse
+import com.harissabil.anidex.data.remote.projekbasdat.dto.review.ReadAnimeReviewResponse
 import com.harissabil.anidex.data.remote.projekbasdat.dto.review.ReadReviewResponse
 import retrofit2.http.DELETE
 import retrofit2.http.Field
@@ -113,6 +114,11 @@ interface ProjekBasdatApi {
 
     @GET("review/readAll.php")
     suspend fun readAllReview(): ReadAllReviewResponse
+
+    @GET("review/anime.php/{anime_id}")
+    suspend fun readAnimeReview(
+        @Path("anime_id") animeId: Int,
+    ): ReadAnimeReviewResponse
 
     @DELETE("review/delete.php/{review_id}")
     suspend fun deleteReview(
