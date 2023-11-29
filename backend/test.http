@@ -1,6 +1,5 @@
 ### Register user
-
-POST http://192.168.1.4/projekbasdat/auth/register.php
+POST http://localhost/projekbasdat/auth/register.php
 Accept: application/json
 Content-Type: application/x-www-form-urlencoded
 
@@ -10,8 +9,7 @@ nama = farhan &
 email = farhankebab@gmail.com
 
 ### Register user invalid
-
-POST http://192.168.1.4/projekbasdat/auth/register.php
+POST http://localhost/projekbasdat/auth/register.php
 Accept: application/json
 Content-Type: application/x-www-form-urlencoded
 
@@ -21,8 +19,7 @@ name = farhan &
 email = tes@gmail.com
 
 ### Login user
-
-POST http://192.168.1.4/projekbasdat/auth/login.php
+POST http://localhost/projekbasdat/auth/login.php
 Accept: application/json
 Content-Type: application/x-www-form-urlencoded
 
@@ -30,8 +27,7 @@ username = farhankebab &
 password = 12345678
 
 ### Login user invalid
-
-POST http://192.168.1.4/projekbasdat/auth/login.php
+POST http://localhost/projekbasdat/auth/login.php
 Accept: application/json
 Content-Type: application/x-www-form-urlencoded
 
@@ -39,23 +35,25 @@ username = farhankebab &
 password = 1234567891011
 
 ### Check library
-
-GET http://192.168.1.4/projekbasdat/library/check.php/?username=farhandenai&anime_id=9253
+GET http://localhost/projekbasdat/library/check.php/?username=farhandenai&anime_id=9253
 Accept: application/json
 
 ### Read library
-
-GET http://192.168.1.4/projekbasdat/library/read.php/farhandenai
+GET http://localhost/projekbasdat/library/read.php/farhandenai
 Accept: application/json
 
 ### Read review
-GET http://192.168.1.4/projekbasdat/review/read.php/farhandenai
+GET http://localhost/projekbasdat/review/read.php/farhandenai
 Accept: application/json
 
-### Read All Review
-GET http://192.168.1.4/projekbasdat/review/readAll.php
+### Read all review
+GET http://localhost/projekbasdat/review/readAll.php
+Accept: application/json
+
+### Read anime review
+GET https://localhost/projekbasdat/review/anime.php/52991
 Accept: application/json
 
 ### Delete review
-DELETE http://192.168.1.4/projekbasdat/review/delete.php/1
+DELETE http://localhost/projekbasdat/review/delete.php/1
 Accept: application/json
