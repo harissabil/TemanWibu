@@ -42,5 +42,5 @@ create table "review"
         references anime,
     anime_review text,
     anime_score  double precision,
-    review_date  timestamp with time zone
+    review_date  timestamp
 );
