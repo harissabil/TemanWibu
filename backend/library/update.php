@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'PUT') {
                         if (pg_num_rows($res) >= 1) {
 
                             // update review
-                            $updateReviewTable = "UPDATE \"review\" SET anime_review = '$anime_review', anime_score = '$anime_score' WHERE anime_id = '$anime_id' AND username = '$username'";
+                            $updateReviewTable = "UPDATE \"review\" SET anime_review = '$anime_review', anime_score = '$anime_score', review_date = now() WHERE anime_id = '$anime_id' AND username = '$username'";
                             if (pg_send_query($db, $updateReviewTable)) {
                                 $res = pg_get_result($db);
                                 if ($res) {
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'PUT') {
                         } else {
 
                             // insert review
-                            $insertIntoReviewTable = "INSERT INTO \"review\"(anime_id, username, anime_review, anime_score) VALUES ('$anime_id', '$username', '$anime_review', '$anime_score')";
+                            $insertIntoReviewTable = "INSERT INTO \"review\"(anime_id, username, anime_review, anime_score, review_date) VALUES ('$anime_id', '$username', '$anime_review', '$anime_score', now())";
                             if (pg_send_query($db, $insertIntoReviewTable)) {
                                 $res = pg_get_result($db);
                                 if ($res) {
