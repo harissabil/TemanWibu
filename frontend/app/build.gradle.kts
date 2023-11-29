@@ -129,4 +129,7 @@ dependencies {
 
     // lottie compose
     implementation("com.airbnb.android:lottie-compose:6.0.0")
+
+    // Floating Action Button Speed Dial
+    implementation("com.leinardi.android:speed-dial.compose:1.0.0-alpha04")
 }
